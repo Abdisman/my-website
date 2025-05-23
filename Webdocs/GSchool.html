@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nanaimo Schools Map</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    #map {
+      width: 550px;
+      height: 550px;
+      margin: 0 auto; /* Centers the map */
+    }
+    .info-window-content {
+      text-align: center;
+    }
+    .info-window-content img {
+      display: block;
+      margin: 0 auto;
+      width: 60px;
+      height: 40px;
+    }
+    .location-button {
+      background-color: #4285F4; /* Google blue color */
+      border: 2px solid #4285F4;
+      border-radius: 3px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      color: white;
+      cursor: pointer;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 38px;
+      margin: 10px auto;
+      padding: 0 20px;
+      text-align: center;
+      display: block;
+      transition: background-color 0.3s;
+    }
+    .location-button:hover {
+      background-color: #3367D6; /* Darker blue on hover */
+    }
+    .button-container {
+      margin: 10px auto;
+      width: 500px;
+    }
+  </style>
+</head>
+<body>
+  <h2>The Elementary and Secondary Schools in Nanaimo with the Google Maps API</h2>
+  <div class="button-container">
+    <button id="locationButton" class="location-button">Show My Location</button>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsF1aJmfsIohOhpZkOdQkwvRM-v2PLeuw&callback=initMap" async defer></script>
+  
+  <script>
+    let map;
+    let userLocationInfoWindow;
+
+    function initMap() {
+      const viu = { lat: 49.15807, lng: -123.96408 };
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: viu,
+        mapTypeId: 'hybrid',
+        panControl: true,
+        zoomControl: true,
+        zoomControlOptions: {
+          style: google.maps.ZoomControlStyle.LARGE,
+          position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+          position: google.maps.ControlPosition.TOP_RIGHT
+        },
+        scaleControl: true,
+        scaleControlOptions: {
+          position: google.maps.ControlPosition.BOTTOM_LEFT
+        },
+        streetViewControl: true,
+        streetViewControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_BOTTOM
+        },
+        overviewMapControl: true,
+        rotateControl: true,
+        rotateControlOptions: {
+          position: google.maps.ControlPosition.LEFT_TOP
+        }
+      });
+
+      // Load population data with proper styling and zoom
+      fetch('populationG.geojson')
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          // Add data to map
+          map.data.addGeoJson(data);
+          
+          // Style function for population data
+          map.data.setStyle(function(feature) {
+            const pop = feature.getProperty('population');
+            let fillColor = 'orange'; // Default color
+            
+            // Adjust color based on population
+            if (pop > 1000) fillColor = 'red';
+            else if (pop > 500) fillColor = 'yellow';
+            
+            return {
+              strokeWeight: 0.2,
+              strokeColor: '#FF0000',
+              fillColor: fillColor,
+              fillOpacity: 0.5
+            };
+          });
+          // Click listener for population data (updated to check for 2001/1996 data)
+map.data.addListener('click', function(event) {
+  const currentPop = event.feature.getProperty('population');
+  const pop2001 = event.feature.getProperty('POP2001'); // Check if your GeoJSON has this field
+  const pop1996 = event.feature.getProperty('POP1996'); // Check if your GeoJSON has this field
+
+  let popDisplay;
+  
+  if (currentPop && currentPop !== 'NO DATA') {
+    popDisplay = `Current: ${currentPop}`;
+  } else if (pop2001) {
+    popDisplay = `2001 Population: ${pop2001} (latest unavailable)`;
+  } else if (pop1996) {
+    popDisplay = `1996 Population: ${pop1996} (latest unavailable)`;
+  } else {
+    popDisplay = 'No population data available';
+  }
+
+  new google.maps.InfoWindow({
+    content: `<div style="text-align:center;"><b>Population Data</b><br>${popDisplay}</div>`,
+    position: event.latLng
+  }).open(map);
+});
+          
+          // Add school bounds (approximate center points)
+          bounds.extend(new google.maps.LatLng(49.165871512000081, -123.955585545999952)); // Fairview
+          bounds.extend(new google.maps.LatLng(49.153468512000074, -123.952586541999949)); // Georgia Ave
+          bounds.extend(new google.maps.LatLng(49.168455513000026, -123.943225544999962)); // Pauline Haarer
+          bounds.extend(new google.maps.LatLng(49.160975506000057, -123.961025544999984)); // Continuing Ed
+          bounds.extend(new google.maps.LatLng(49.155335505000039, -123.967715544999976)); // Malaspina
+          bounds.extend(new google.maps.LatLng(49.162685506000059, -123.961025545999973)); // NDSS
+          
+          if (!bounds.isEmpty()) {
+            map.fitBounds(bounds, {top: 50, right: 50, bottom: 50, left: 50});
+          }
+        })
+        .catch(error => {
+          console.error('Error loading population data:', error);
+        });
+
+      // School markers
+      createMarker('Fairview Elementary', -123.955585545999952, 49.165871512000081, 'Images/FAIRVIEW_ELEMENTARY.jpg').setMap(map);
+      createMarker('Georgia Avenue Elementary', -123.952586541999949, 49.153468512000074, 'Images/GEORGIA_AVENUE_ELEMENTARY.png').setMap(map);
+      createMarker('Pauline Haarer Elementary', -123.943225544999962, 49.168455513000026, 'Images/PAULINE_HAARER_ELEMENTARY.png').setMap(map);
+      createMarker('Continuing Ed SD 68', -123.961025544999984, 49.160975506000057, 'Images/CONTINUING_ED_SD_68.png').setMap(map);
+      createMarker('Malaspina International High School', -123.967715544999976, 49.155335505000039, 'Images/MALASPINA_INTERNATIONAL_HIGH_SCHOOL.png').setMap(map);
+      createMarker('Nanaimo Career & Technical Ctr', -123.961025545999973 + 0.0005, 49.162685506000059, 'Images/NANAIMO_CAREER_TECHNICAL_CTR.png').setMap(map);
+      
+      const ndssMarker = createMarker('Nanaimo District Secondary', -123.961025545999973, 49.162685506000059, 'Images/NANAIMO_DISTRICT_SECONDARY.png');
+      ndssMarker.setMap(map);
+      
+      const ndssCircle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.2,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.2,
+        map: map,
+        center: { lat: 49.162685506000059, lng: -123.961025545999973 },
+        radius: 1500
+      });
+      
+      const circleInfoWindow = new google.maps.InfoWindow({
+        content: '<div style="text-align:center;"><b>1.5 km Search Radius</b><br>Around Nanaimo District Secondary</div>'
+      });
+      
+      ndssCircle.addListener('click', (event) => {
+        circleInfoWindow.setPosition(event.latLng);
+        circleInfoWindow.open(map);
+      });
+
+      userLocationInfoWindow = new google.maps.InfoWindow();
+
+      const locationButton = document.getElementById("locationButton");
+
+      locationButton.addEventListener("click", () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+              userLocationInfoWindow.setPosition(pos);
+              userLocationInfoWindow.setContent(`
+                <div style="text-align:center;">
+                  <b>Your Current Location</b><br>
+                  Latitude: ${pos.lat.toFixed(6)}<br>
+                  Longitude: ${pos.lng.toFixed(6)}<br>
+                  Accuracy: ${position.coords.accuracy} meters
+                </div>
+              `);
+              userLocationInfoWindow.open(map);
+              map.setCenter(pos);
+            },
+            () => {
+              handleLocationError(true, userLocationInfoWindow, map.getCenter());
+            }
+          );
+        } else {
+          handleLocationError(false, userLocationInfoWindow, map.getCenter());
+        }
+      });
+    }
+
+    function createMarker(school_name, point_x, point_y, image_path) {
+      const latlng = { lat: point_y, lng: point_x };
+      const marker = new google.maps.Marker({
+        position: latlng,
+        title: school_name
+      });
+
+      const infowindow = new google.maps.InfoWindow({
+        content: `
+          <div class="info-window-content">
+            <h3>${school_name}</h3>
+            <img src="${image_path}" alt="${school_name}">
+          </div>`
+      });
+
+      marker.addListener('click', () => {
+        infowindow.open(map, marker);
+      });
+      return marker;
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(
+        browserHasGeolocation
+          ? "Error: The Geolocation service failed."
+          : "Error: Your browser doesn't support geolocation."
+      );
+      infoWindow.open(map);
+    }
+  </script>
+</body>
+</html>

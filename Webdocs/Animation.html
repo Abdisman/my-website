@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Maps</title>
+    <style>
+        /* Style from the second file */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #007BFF;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        .nav-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .nav-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .nav-buttons a:hover {
+            background-color: #0056b3;
+        }
+        .location-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .location-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Animated Maps</h1>
+    <p>fly_sample:</p>
+    
+    <!-- Video Section -->
+    <div class="section">
+        <video width="640" height="360" controls>
+            <source src="fly_sample.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Animated GIF Section -->
+    <div class="section">
+        <h2>Animated GIF</h2>
+        <img src="Images/myanimation.gif" alt="Monthly Temperature Animated GIF" width="1056" height="816">
+    </div>
+
+    <!-- JavaScript Animation Section -->
+    <div class="section">
+        <h2>JavaScript Animation</h2>
+        <a href="JavaScriptAnimation.html">View JavaScript Animation</a>
+    </div>
+
+    <!-- JavaScript Slide Show Section -->
+    <div class="section">
+        <h2>JavaScript Slide Show</h2>
+        <a href="JavaScriptSlideShow.html">View JavaScript Automatic Slide Show</a>
+    </div>
+
+    <!-- Get My Location Section -->
+    <div class="section">
+        <h2>Get My Location</h2>
+        <p>Click the button to get your coordinates.</p>
+        <button class="location-button" onclick="getLocation()">Get my location</button>
+        <p id="demo"></p>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <a href="ToC.html">Back to Table of Contents</a>
+        <a href="MyResume.html">My Home Page</a>
+    </div>
+
+    <script>
+        // JavaScript for Location
+        var x = document.getElementById("demo");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
+    </script>
+</body>
+</html>

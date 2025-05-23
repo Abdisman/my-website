@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nanaimo Schools Map with Location</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.32/"></script>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      text-align: center;
+    }
+    #viewDiv {
+      width: 900px;
+      height: 600px;
+      border: 1px solid #000;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div><h2>Nanaimo Schools: ArcGIS Maps SDK for JavaScript</h2></div>
+  <div id="viewDiv"></div>
+  <div id="locationBtn" title="Find my location">
+  </div>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/geometry/Point",
+      "esri/symbols/PictureMarkerSymbol",
+      "esri/widgets/Locate"
+    ], function(Map, MapView, Graphic, Point, PictureMarkerSymbol, Locate) {
+
+      var map = new Map({
+        basemap: "streets-vector"
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-123.95, 49.15], // rough center for Nanaimo
+        zoom: 12
+        });
+
+      var schoolSymbol = new PictureMarkerSymbol({
+        url: "images/Goschool.png",
+        width: "30px",
+        height: "30px"
+      });
+
+      function addSchool(x, y, name, address, phone, principal, grades, url, symbol) {
+        var point = new Point({
+          x: x,
+          y: y,
+          spatialReference: { wkid: 102100 }
+        });
+
+        var infoTemplate = {
+          title: "{Name}",
+          content: `
+            <b>Address:</b> {Address}<br>
+            <b>Phone:</b> {Phone}<br>
+            <b>Principal:</b> {Principal}<br>
+            <b>Grades:</b> {Grades}<br>
+            <b>Website:</b> <a target='_blank' href='{URL}'>Visit School Website</a>
+          `
+        };
+
+        var pointGraphic = new Graphic({
+          symbol: symbol,
+          geometry: point,
+          attributes: {
+            Name: name,
+            Address: address,
+            Phone: phone,
+            Principal: principal,
+            Grades: grades,
+            URL: url
+          },
+          popupTemplate: infoTemplate
+        });
+
+        view.graphics.add(pointGraphic);
+      }
+
+      const locateBtn = new Locate({
+        view: view,
+        goToOverride: function(view, options) {
+          options.target.scale = 1000;
+          return view.goTo(options.target);
+        }
+      });
+      view.ui.add(locateBtn, "top-right");
+
+      const offset = 50;
+
+      addSchool(
+        -13799278.242 - offset, 
+        6302510.939 - offset,
+        "NANAIMO DISTRICT SECONDARY", 
+        "355 Wakesiah Ave, Nanaimo, BC V9R 3K5", 
+        "250-740-2000",
+        "Mr D Ryan", 
+        "8-12", 
+        "https://nd.schools.sd68.bc.ca/", 
+        schoolSymbol
+      );
+
+      addSchool(
+        -13799278.242 + offset, 
+        6302510.939 + offset,
+        "NANAIMO CAREER & TECHNICAL CTR", 
+        "355 Wakesiah Avenue, Nanaimo, BC V9R 3K5", 
+        "250-740-2032",
+        "Mr D Street", 
+        "12", 
+        "https://ctc-careerpaths.ca/", 
+        schoolSymbol
+      );
+
+      addSchool(
+        -13798672.664, 
+        6303053.3287,
+        "FAIRVIEW ELEMENTARY", 
+        "205 Howard Ave, Nanaimo, BC V9R 3R3", 
+        "250-753-3418",
+        "Mr R Padgham", 
+        "K-7", 
+        "https://fv.schools.sd68.bc.ca/", 
+        schoolSymbol
+      );
+
+      addSchool(
+        -13798338.8164, 
+        6300942.0224,
+        "GEORGIA AVENUE COMMUNITY SCHOOL", 
+        "625 Georgia Ave, Nanaimo, BC V9R 3W3", 
+        "250-753-1044",
+        "Ms J Longy", 
+        "K-7", 
+        "https://ge.schools.sd68.bc.ca/", 
+        schoolSymbol
+      );
+
+      addSchool(
+        -13797296.7549, 
+        6303493.2581,
+        "PAULINE HAARER ELEMENTARY", 
+        "400 Campbell St, Nanaimo, BC V9R 3G7", 
+        "250-754-2722",
+        "Mr S Mohit (acting)", 
+        "K-7", 
+        "https://www.sd68.bc.ca/schools/ecole-pauline-haarer-elementary/", 
+        schoolSymbol
+      );
+
+      addSchool(
+        -13799278.2419, 
+        6302219.8408,
+        "COMMUNITY CONT ED 68", 
+        "395 Wakesiah Ave, Nanaimo, BC V9R 3K6", 
+        "250-753-3418",
+        "Mr S Saywell", 
+        "12", 
+        "https://www.sd68.bc.ca/wp-content/uploads/AP-229-Community-Continuing-Education.pdf", 
+        schoolSymbol
+      );
+      addSchool(
+        -13800022.9693, 
+        6301259.7985,
+        "MALASPINA INTERNATIONAL HIGH SCHOOL", 
+        "900 Fifth St, Nanaimo, BC V9R 5S5", 
+        "250-740-6317",
+        "Mr T Lewis", 
+        "10-12", 
+        "https://internationalschoolguide.com/canada/malaspina.htm", 
+        schoolSymbol
+      );
+    });
+  </script>
+</body>
+</html>

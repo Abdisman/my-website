@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>VIU Campus Map</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.32/"></script>
+
+  <style>
+    html, body, #viewDiv {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Banner container */
+    #srDiv {
+      position: absolute;
+      top: 0;
+      left: 3%;
+      width: 77%; /* Not full width to avoid overlapping legend */
+      height: 90px;
+      background-image: url('images/banner.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      pointer-events: none; /* Allows map widgets underneath to remain clickable */
+      z-index: 1;
+    }
+
+    #srContent {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 20px;
+      width: 100%;
+      pointer-events: auto; /* This container can be interacted with */
+    }
+
+    #srLogo {
+      height: 70px;
+      width: auto;
+    }
+
+    #srTitle {
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px 4px black;
+    }
+  </style>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Legend",
+      "esri/widgets/LayerList",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Home"
+    ], function(Map, MapView, FeatureLayer, Legend, LayerList, ScaleBar, Home) {
+
+      const map = new Map({
+        basemap: "streets-vector"
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        extent: {
+          xmin: -13800000,
+          ymin: 6301000,
+          xmax: -13799900,
+          ymax: 6302350,
+          spatialReference: { wkid: 102100 }
+        }
+      });
+
+      const ViuLayer0 = new FeatureLayer({
+        url: "https://catala.viu.ca/arcgis/rest/services/VIUMap_667655732/MapServer/0"
+      });
+
+      const ViuLayer1 = new FeatureLayer({
+        url: "https://catala.viu.ca/arcgis/rest/services/VIUMap_667655732/MapServer/1"
+      });
+
+      const ViuLayer2 = new FeatureLayer({
+        url: "https://catala.viu.ca/arcgis/rest/services/VIUMap_667655732/MapServer/2"
+      });
+
+      map.addMany([ViuLayer0, ViuLayer1, ViuLayer2]);
+
+  view.when(() => {
+  view.ui.add(new Legend({ view }), "top-right");
+  view.ui.add(new LayerList({ view }), "bottom-right");
+  view.ui.add(new Home({ view }), "top-left");
+
+  // FIXED and styled ScaleBar
+  view.ui.add(new ScaleBar({
+    view: view,
+    style: "ruler",
+    unit: "metric"
+  }), "bottom-left");
+
+  // Custom Banner UI
+  const srDiv = document.createElement("div");
+  srDiv.id = "srDiv";
+
+  srDiv.innerHTML = `
+    <div id="srContent">
+      <img id="srLogo" src="images/VIU-75-Logo.jpg" alt="VIU Logo" />
+      <div id="srTitle">The VIU Campus Map with ArcGIS.com and ArcGIS Server</div>
+    </div>
+  `;
+
+  view.ui.add(srDiv, "manual");
+});
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>

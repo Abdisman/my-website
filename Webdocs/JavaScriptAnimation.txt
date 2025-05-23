@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Animation</title>
+    <script>
+        // Array to store images
+        var images = [];
+        for (var j = 0; j < 12; j++) {
+            images[j] = new Image(1056, 816);
+            images[j].src = "images/MT-" + (j + 1) + ".jpg"; // Corrected filenames
+        }
+
+        var i = 0;  // Image index
+        var nbImg = 12; // Number of images
+        var animation = true;
+        var timer;  // To store setTimeout reference
+
+        function animate() {
+            if (animation) {
+                document.getElementById("animImage").src = images[i].src;
+                i = (i + 1) % nbImg; // Loop back to first image after last
+                timer = setTimeout(animate, 500); // Change every 500ms
+            }
+        }
+
+        function startAnimation() {
+            animation = true;
+            animate();
+        }
+
+        function stopAnimation() {
+            animation = false;
+            clearTimeout(timer); // Stop the animation loop
+        }
+    </script>
+</head>
+<body onload="startAnimation();">
+    <h2>Mean Temperature Animation (2005)</h2>
+    
+    <img id="animImage" src="images/MT-1.jpg" width="1056" height="816" alt="Temperature Animation">
+    
+    <br><br>
+    <button onclick="startAnimation()">Start</button>
+    <button onclick="stopAnimation()">Stop</button>
+</body>
+</html>

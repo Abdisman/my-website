@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipality’s fabric web map with Leaflet</title>  
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            width: 800px;
+            height: 600px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>The Nanaimo Municipalities’ Fabric Map with Leaflet JavaScript API</h2>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+    
+    <!-- Your Municipalities Data -->
+    <script src="MunicipalitiesG_0.js"></script>
+
+    <!-- Main Map Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map with zoom level 10
+            const map = L.map('map').setView([49.139, -124.146], 10);
+            
+            // Add base tiles
+            const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Additional base layers
+            var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+            });
+
+            var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                maxZoom: 17,
+                attribution: 'Map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: © <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            });
+
+            // Base layers object
+            const baseLayers = {
+                "Open Street Map": tiles,
+                "Open Street Map Hot": OpenStreetMap_HOT,
+                "Open TopoMap": OpenTopoMap
+            };
+
+            // Style function for municipalities
+            function style_municipalitiesG_0_0() {
+                return {
+                    pane: 'pane_municipalitiesG_0',
+                    opacity: 1,
+                    color: 'rgba(0,0,0,1.0)', // Black outlines
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    weight: 1.0, 
+                    fill: true,
+                    fillOpacity: 0, // Transparent background
+                    fillColor: 'rgba(255,255,255,0)', // White but fully transparent
+                }
+            }
+
+            // Create pane for municipalities
+            map.createPane('pane_municipalitiesG_0');
+            map.getPane('pane_municipalitiesG_0').style.zIndex = 400;
+            map.getPane('pane_municipalitiesG_0').style['mix-blend-mode'] = 'normal';
+
+            // Function to handle popup content for municipalities
+            function pop_Municipalities(feature, layer) {
+                // Calculate population density (population / area in sq km)
+                const population = feature.properties['POP96'] || 0;
+                const area = feature.properties['POP_SQKM'] || 0;
+                const populationDensity = area !== 0 ? (population / area).toFixed(2) : 'N/A';
+
+                var popupContent = "<b>" + "Municipality name: " + feature.properties['NAME'] + "</b>" + "</br>" +
+                                   "Web URL: " + "<a href='" + feature.properties['HTTP_URL'] + "' target='_blank'>Web site</a>" + "</br>" +
+                                   "Population: " + feature.properties['POP96'] + "</br>" + 
+                                   "Number of Dwellings : " + feature.properties['DWELL96'] + "</br>" + 
+                                   "Area sq.km.: " + feature.properties['POP_SQKM'] + "</br>" +
+                                   "Population Density: " + populationDensity; // Calculated value
+
+                layer.bindPopup(popupContent);
+            }
+
+            // Add GeoJSON layer with new style and popup functionality
+            var mun = L.geoJSON(json_MunicipalitiesG_0, {
+                style: style_municipalitiesG_0_0,
+                onEachFeature: pop_Municipalities // Updated function
+            }).addTo(map);
+
+            // Overlays object
+            const overlays = {
+                "Municipalities": mun
+            };
+
+            // Removed map.fitBounds() to maintain zoom level 10
+            // map.fitBounds(mun.getBounds());
+
+            // Add scale control (Step 10)
+            L.control.scale().addTo(map);
+
+            // Add layers control (Step 12)
+            L.control.layers(baseLayers, overlays).addTo(map);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Map Services</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f9fc;
+        }
+        
+        h1 {
+            color: #2E5C6E;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2E5C6E;
+        }
+        
+        .map-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .map-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .map-title {
+            font-weight: 600;
+            color: #2E5C6E;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+        
+        .map-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .map-link {
+            display: inline-block;
+            background-color: #2E5C6E;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .map-link:hover {
+            background-color: #1a3e4c;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Map Services</h1>
+    
+    <div class="map-container">
+        <div class="map-title">Nanaimo Schools</div>
+        <div class="map-description">ArcGIS Maps SDK for JavaScript implementation</div>
+        <a href="ASchool.html" class="map-link" target="iframe_b">View Map</a>
+    </div>
+    
+    <div class="map-container">
+        <div class="map-title">VIU Campus</div>
+        <div class="map-description">ArcGIS Online Web Mapping Application</div>
+        <a href="https://experience.arcgis.com/experience/839b4dcbe2254c67aac8d429d5b7d5d2" class="map-link" target="iframe_b">View Map</a>
+    </div>
+    
+    <div class="map-container">
+        <div class="map-title">VIU Campus Map</div>
+        <div class="map-description">Combining ArcGIS.com and ArcGIS Server</div>
+        <a href="MapLayout.html" class="map-link" target="_blank">View Map</a>
+    </div>
+    
+    <footer>
+        Web Map Services Portal &copy; 2025
+    </footer>
+</body>
+</html>

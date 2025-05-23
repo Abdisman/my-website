@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanaimo Region Interactive Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        /* Header styling */
+        .header-frame {
+            width: 100%;
+            height: 60px;
+            border: none;
+        }
+        
+        /* Container for ToC and map */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 60px); /* Remaining height after header */
+            width: 100%;
+        }
+        
+        /* Scrollable Table of Contents frame */
+        .toc-frame {
+            width: 15%;
+            min-width: 150px;
+            height: 100%;
+            overflow-y: auto;
+            border-right: 1px solid #ccc;
+        }
+        
+        /* Static map display */
+        .map-container {
+            width: 85%;
+            height: 100%;
+            position: relative;
+            overflow: hidden; /* Prevent map from scrolling */
+        }
+        .map-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Frame -->
+    <iframe src="header.html" name="header" class="header-frame" scrolling="no"></iframe>
+    
+    <!-- Main Content Area -->
+    <div class="main-container">
+        <!-- Scrollable ToC -->
+        <iframe src="ToCMap.html" name="contents" class="toc-frame" scrolling="yes"></iframe>
+        
+        <!-- Fixed Map Display (Static Map) -->
+        <div class="map-container">
+            <iframe src="Map.html" name="mapdisplay" class="map-content"></iframe>
+        </div>
+    </div>
+</body>
+</html>

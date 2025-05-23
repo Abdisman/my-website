@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="468pt" height="397pt" viewBox="0 0 468 397" xml:space="preserve" enable-background="new 0 0 468 397">
+<g transform="scale(0.24,0.24)">
+<g>
+	<rect x="0" y="0" width="1948.815" height="1653.54" fill="#FFFFFF" fill-opacity="0" />
+</g>
+<!-- Begin_Label-->
+<g id="Map_Frame">
+<clipPath id="cp_1">
+<path d="M1923.9287 1617.6745 L1923.9287 34.468158 L30.74187 34.468158 L30.74187 1617.6745 Z " />
+</clipPath>
+<g clip-path="url(#cp_1)">
+<g id="EmbdFile__1" transform="matrix(1 0 0 1 30.74187 34.468158)">
+<g>
+<g transform="scale(1,1)">
+</g>
+</g>
+</g>
+</g>
+<!-- End_Label-->
+<g transform="matrix(4.1666667 0 0 -4.1666667 0 1653.54)">
+<path d="M7.3780489 388.57724 L461.74289 388.57724 L461.74289 8.6077237 L7.3780489 8.6077237 L7.3780489 388.57724 Z "  stroke="#000000" fill="none" stroke-opacity="1" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="10" />
+</g>
+</g>
+</g>
+</svg>

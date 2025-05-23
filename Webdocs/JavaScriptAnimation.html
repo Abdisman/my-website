@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Animation</title>
+    <style>
+        /* Navigation buttons */
+        .nav-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        // Preload images
+        var img0 = new Image(1056, 816);
+        img0.src = "Images/Jan_mt.jpg"; // January
+
+        var img1 = new Image(1056, 816);
+        img1.src = "Images/Feb_mt.jpg"; // February
+
+        var img2 = new Image(1056, 816);
+        img2.src = "Images/March_mt.jpg"; // March
+
+        var img3 = new Image(1056, 816);
+        img3.src = "Images/April_mt.jpg"; // April
+
+        var img4 = new Image(1056, 816);
+        img4.src = "Images/May_mt.jpg"; // May
+
+        var img5 = new Image(1056, 816);
+        img5.src = "Images/June_mt.jpg"; // June
+
+        var img6 = new Image(1056, 816);
+        img6.src = "Images/July_mt.jpg"; // July
+
+        var img7 = new Image(1056, 816);
+        img7.src = "Images/Aug_mt.jpg"; // August
+
+        var img8 = new Image(1056, 816);
+        img8.src = "Images/Sept_mt.jpg"; // September
+
+        var img9 = new Image(1056, 816);
+        img9.src = "Images/Oct_mt.jpg"; // October
+
+        var img10 = new Image(1056, 816);
+        img10.src = "Images/Nov_mt.jpg"; // November
+
+        var img11 = new Image(1056, 816);
+        img11.src = "Images/Dec_mt.jpg"; // December
+
+        var i = 0;
+        var animation = true;
+        var nbImg = 12; // Number of images
+
+        function animate() {
+            if (animation) {
+                document.images[0].src = eval("img" + i).src;
+            }
+            i++;
+            if (i == nbImg) i = 0;
+            setTimeout("animate();", 500); // 500ms delay between images
+        }
+    </script>
+</head>
+<body onLoad="animate();">
+    <h1>Monthly Temperature Animation</h1>
+    <form>
+        <input type="button" onClick="animation = true;" value="Start">
+        <input type="button" onClick="animation = false;" value="Stop">
+    </form>
+    <br>
+    <img src="" width="1056" height="816" alt="Canada Monthly Temperature for 2005">
+    </div>
+    <a href="ToC.html">Back to Table of Contents</a><br>
+    <div style="text-align: center; margin-top: 20px;">  </div>
+    <a href="MyResume.html">My Home Page</a><br>
+    </div>
+</body>
+</html>

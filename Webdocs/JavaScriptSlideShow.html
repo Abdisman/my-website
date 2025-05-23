@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Slide Show</title>
+    <style>
+        .slideshow-container {
+            max-width: 1056px;
+            position: relative;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Automatic Slide Show</h1>
+    <div class="slideshow-container">
+        <div class="mySlides">
+            <img src="Images/Jan_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/Feb_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/March_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/April_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/May_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/June_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/July_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/Aug_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/Sept_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/Oct_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/Nov_mt.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="Images/Dec_mt.jpg" style="width:100%">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <a href="ToC.html">Back to Table of Contents</a>
+        <a href="MyResume.html">My Home Page</a>
+    </div>
+
+    <script>
+        var slideIndex = 0;
+        showSlides();
+
+        // Automatic slideshow
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        // Manual slide control
+        function plusSlides(n) {
+            var slides = document.getElementsByClassName("mySlides");
+            slideIndex += n;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            if (slideIndex < 1) { slideIndex = slides.length }
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abdiqafar Osman - Professional CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #3498db;
+      --secondary: #2c3e50;
+      --accent: #e74c3c;
+      --light: #f8f9fa;
+      --dark: #333;
+      --gray: #95a5a6;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.8;
+      color: var(--dark);
+      background-color: #f5f7fa;
+    }
+    
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      padding: 40px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      margin-right: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .header-content {
+      flex: 1;
+    }
+    
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin: 0 0 10px;
+      font-weight: 600;
+    }
+    
+    .title {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    
+    .contact-item i {
+      margin-right: 8px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+      position: relative;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+    
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      position: relative;
+    }
+    
+    li:before {
+      content: '•';
+      color: var(--primary);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+    
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .skill-tag {
+      background: var(--light);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--secondary);
+      border: 1px solid #e0e0e0;
+    }
+    
+    .job {
+      margin-bottom: 20px;
+    }
+    
+    .job-title {
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 5px;
+    }
+    
+    .job-company {
+      font-weight: 500;
+      color: var(--primary);
+    }
+    
+    .job-duration {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    
+    .profile-text {
+      text-align: justify;
+    }
+    
+    .full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .qualification {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .qualification-title {
+      font-weight: 600;
+    }
+    
+    .qualification-date {
+      color: var(--gray);
+    }
+    
+    .training-item {
+      display: flex;
+      margin-bottom: 8px;
+    }
+    
+    .training-item:before {
+      content: '▹';
+      color: var(--primary);
+      margin-right: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        padding: 30px;
+      }
+      
+      .header {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      
+      .profile-img {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .contact-info {
+        justify-content: center;
+      }
+      
+      .qualification {
+        flex-direction: column;
+      }
+    }
+    
+    @media print {
+      body {
+        background: none;
+      }
+      .container {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="Images/2019-AOMH.JPG"
+      alt="Abdiqafar Osman" class="profile-img">
+      <div class="header-content">
+        <h1>Abdiqafar Osman</h1>
+        <div class="title">Monitoring & Evaluation | Data Analysis | GIS Specialist</div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            abdiqafar.osman@hotmail.com
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            +254722581616
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            Vancouver, Canada
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="main-content">
+      <div class="section full-width">
+        <h2 class="section-title">Professional Profile</h2>
+        <p class="profile-text">I am a skilled Monitoring and Evaluation (M&E) and data analysis specialist with extensive experience in designing and managing research and evaluation projects. Proficient in ArcGIS, QGIS, Python, and R, I excel in spatial data analysis, geospatial modelling, and data visualization to generate actionable insights for program planning and decision-making. My work has supported resilience-building and development initiatives, with a focus on enhancing community-centred outcomes through data-driven solutions. I am passionate about collaborating with diverse teams, building capacity, and delivering impactful results for vulnerable populations.</p>
+      </div>
+      
+      <div class="section full-width">
+        <h2 class="section-title">Highlight of Qualifications</h2>
+        <ul>
+          <li>Over 8 years of relevant experience in community services in fragile contexts, specializing in community engagement, accountability, learning, resilience building, and monitoring program outcomes while documenting lessons learned.</li>
+          <li>Proficient in utilizing data collection tools for both qualitative and quantitative data, with strong analytical skills using Excel, SQL, and R programming (including tidyverse packages).</li>
+          <li>Extensive experience in vector and raster data analysis, geodatabase creation, cartography, and spatial modeling using QGIS and ArcGIS.</li>
+          <li>Skilled in Python for spatial data analysis and machine learning, applying libraries such as GeoPandas, Rasterio, Scikit-learn, and TensorFlow for geospatial data processing and predictive analytics.</li>
+          <li>Holds a Master of Arts in Monitoring and Evaluation from Daystar University and is currently pursuing an Advanced Diploma in GIS Applications at Vancouver Island University.</li>
+          <li>Played a key role in coordinating multi-agency responses during the highly monitored 2014 Ebola response in Sierra Leone, ensuring effective monitoring and reporting in Kono District.</li>
+          <li>Experienced in project monitoring, milestone reporting, and risk assessment, with strong expertise in developing early warning systems for humanitarian interventions.</li>
+          <li>High-level coordination experience across multiple clusters, including nutrition, shelter, health, and emergency response.</li>
+          <li>A highly reliable and resourceful professional with strong attention to detail and a strategic approach to organizational development.</li>
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">Core Competencies</h2>
+        <div class="skills">
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Fast Learner</span>
+          <span class="skill-tag">GIS Analysis</span>
+          <span class="skill-tag">Interpersonal Skills</span>
+          <span class="skill-tag">Organizational</span>
+          <span class="skill-tag">Adaptability</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Teamwork</span>
+          <span class="skill-tag">Presentation</span>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">Technical Skills</h2>
+        <ul>
+          <li><strong>GIS Software:</strong> ArcGIS (Desktop & Web), QGIS, GeoDa</li>
+          <li><strong>Statistical Analysis:</strong> R (Tidyverse, ggplot2), SPSS, SQL</li>
+          <li><strong>Programming:</strong> Python (Pandas, NumPy, GeoPandas, Scikit-learn)</li>
+          <li><strong>Data Visualization:</strong> Power BI, Tableau, Matplotlib</li>
+          <li><strong>Microsoft Office:</strong> Word, Excel, PowerPoint, Access</li>
+        </ul>
+      </div>
+      
+      <div class="section full-width">
+        <h2 class="section-title">Relevant Skills and Experience</h2>
+        <ul>
+          <li>Experienced in full data lifecycle, proficient in SPSS, Excel, and R script for analysis, adept at visualizing complex data using both Power BI and Tableau.</li>
+          <li>Proficient in all six phases of data analysis: Ask, Prepare, Process, Analyse, Interpret, and Share, actively applying them to ensure comprehensive understanding and effective communication of insights.</li>
+          <li>Strong spatial analytics skills, including buffering, spatial join, summarize within, interpolation, clustering analysis, hotspot analysis, network analysis, raster analysis, and proximity analysis.</li>
+        </ul>
+      </div>
+      
+      <div class="section full-width">
+        <h2 class="section-title">Education</h2>
+        <div class="qualification">
+          <div class="qualification-title">Advanced Diploma in GIS Applications</div>
+          <div class="qualification-date">Jan 2024 - April 2025</div>
+        </div>
+        <div class="job-company">Vancouver Island University, Nanaimo BC</div>
+        
+        <div class="qualification">
+          <div class="qualification-title">M.A. Monitoring and Evaluation</div>
+          <div class="qualification-date">Sep 2022 - Dec 2023</div>
+        </div>
+        <div class="job-company">Daystar University, Kenya</div>
+        
+        <div class="qualification">
+          <div class="qualification-title">Post Graduate Diploma in Humanitarian Diplomacy</div>
+          <div class="qualification-date">Sep 2015 - Dec 2015</div>
+        </div>
+        <div class="job-company">Malta University and IFRC</div>
+        
+        <div class="qualification">
+          <div class="qualification-title">Bachelor of Arts in Economics and Sociology</div>
+          <div class="qualification-date">Oct 2010 - Dec 2014</div>
+        </div>
+        <div class="job-company">University of Nairobi, Kenya</div>
+      </div>
+      
+      <div class="section full-width">
+        <h2 class="section-title">Employment History</h2>
+        
+        <div class="job">
+          <div class="job-title">Project Manager</div>
+          <div class="job-company">arche noVa, Galkayo, Somalia</div>
+          <div class="job-duration">Nov 2024 – Present</div>
+          <ul>
+            <li>Coordinating BMZ-funded WASH, DRR, and Livelihoods projects in Somalia.</li>
+            <li>Ensuring compliance with donor and organizational standards in planning, budgeting, and reporting.</li>
+            <li>Overseeing construction of WASH/FSL infrastructure and leading community engagement efforts.</li>
+            <li>Supporting MEAL activities including baseline, PDM, and endline evaluations.</li>
+            <li>Facilitating communication between field teams, local authorities, and regional offices.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Customer Support Specialist</div>
+          <div class="job-company">Air Canada, Vancouver, BC</div>
+          <div class="job-duration">Jan 2022 – July 2024</div>
+          <ul>
+            <li>Analyzed team productivity and service metrics to enhance customer support.</li>
+            <li>Reviewed customer data for quality and compliance.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Community Services Assistant</div>
+          <div class="job-company">Canadian Red Cross Society, Toronto, Ontario</div>
+          <div class="job-duration">Sept 2018 – Dec 2021</div>
+          <ul>
+            <li>Conducted client assessments and data collection to support community programs.</li>
+            <li>Addressed incidents and monitored client feedback to ensure service quality.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Program Coordinator/Ag branch manager</div>
+          <div class="job-company">Kenya Red Cross Society, Garissa</div>
+          <div class="job-duration">Apr 2017 - March 2018</div>
+          <ul>
+            <li>Developed project work plans and coordinated staff.</li>
+            <li>Monitored progress and ensured adherence to standards.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Third Party Monitoring consultant</div>
+          <div class="job-company">WFP/CTG global, Dolow Somalia</div>
+          <div class="job-duration">March 2015 - April 2017</div>
+          <ul>
+            <li>Monitoring and reporting on WFP projects at the field level these projects were nutrition, livelihood, food security and school feeding.</li>
+            <li>Arrange for and/or participate in food security, Market and Nutrition assessments to identify Needy populations and realistic means of reaching them.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Field crisis Management officer</div>
+          <div class="job-company">United Nations, Kono Sierra Leone</div>
+          <div class="job-duration">Dec 2014 - May 2015</div>
+          <ul>
+            <li>Coordinated UN agencies and local stakeholders.</li>
+            <li>Conducted assessments and developed response plans.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Third Party Monitoring consultant</div>
+          <div class="job-company">WFP/CTG global, Dolow Somalia</div>
+          <div class="job-duration">March 2013 - Nov 2014</div>
+          <ul>
+            <li>Monitoring and reporting on WFP projects at the field level these projects were nutrition, livelihood, food security and school feeding.</li>
+            <li>Arrange for and/or participate in food security, Market and Nutrition assessments to identify Needy populations and realistic means of reaching them.</li>
+          </ul>
+        </div>
+        
+        <div class="job">
+          <div class="job-title">Program Officer</div>
+          <div class="job-company">SERDO, Mogadishu</div>
+          <div class="job-duration">March 2012 - March 2013</div>
+          <ul>
+            <li>Analyzed program performance data and reports.</li>
+            <li>Built capacity of staff in monitoring and evaluation.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">Trainings & Workshops</h2>
+        <div class="training-item">Introduction to GIS - University of Toronto Coursera (2023)</div>
+        <div class="training-item">Google Data Analytics Certificate - Coursera (Google) (2023)</div>
+        <div class="training-item">Project/Program Planning - IFRC (2020)</div>
+        <div class="training-item">Leadership and Management in Humanitarian Crisis - NNPHL (2019)</div>
+        <div class="training-item">RDRT CEA Specialists - IFRC Africa (2017)</div>
+        <div class="training-item">CaLP Level Two Training - Kenya Red Cross and CaLP Kenya (2017)</div>
+        <div class="training-item">CTP Market Analysis - CaLP and IRC Online (2017)</div>
+        <div class="training-item">CTP Fundamentals - CaLP Online (2017)</div>
+        <div class="training-item">Fundamentals of M&E - MEASURE-USAID (2015)</div>
+        <div class="training-item">SPHERE Handbook - IFRC (2015)</div>
+        <div class="training-item">SPSS and QuickBooks - Orbit College-Nairobi (2014)</div>
+        <div class="training-item">Project Cycle Management - SAGE Organization/SNC (2013)</div>
+        <div class="training-item">Disaster Management - Kenya Red Cross (2009)</div>
+      </div>
+      
+      <div class="section">
+        <h2 class="section-title">Computer Skills</h2>
+        <ul>
+          <li>Proficient in Microsoft Office Suite: MS Word, Excel (spreadsheets), Publisher, PowerPoint, and Access.</li>
+          <li>Experienced with GIS software: ArcGIS (Web & Desktop), QGIS.</li>
+          <li>Skilled in Statistical & Data Analysis Tools: SPSS, SQL, R (Tidyverse, ggplot2).</li>
+          <li>Proficient in Programming & Scripting: Python (Pandas, Arcpy, NumPy, GeoPandas, Rasterio, Matplotlib), R.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
